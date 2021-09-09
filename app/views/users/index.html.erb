@@ -21,7 +21,7 @@
         <tbody>
           <% @users.each do |u| %>
           <tr>
-            <td><%= image_tag('sample-author1.jpg') %></td>
+            <td><%= attachment_image_tag u, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg" %></td>
             <td><%= link_to user_path(u.id) do %>
                   <%= u.name %>
                 <%end%>
