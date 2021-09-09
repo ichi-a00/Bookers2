@@ -1,6 +1,3 @@
-<h1>Books#index</h1>
-<p>Find me in app/views/books/index.html.erb</p>
-
 <p id="notice"></p>
 <div class='container px-5 px-sm-0'>
   <div class='row'>
@@ -8,7 +5,7 @@
       <h2>User info</h2>
       <table class='table'>
         <tr>
-          <img class="attachment user profile_image fallback" src="assets/images/no_image.jpg" />
+          <%= image_tag('sample-author1.jpg') %>
         </tr>
         <tr>
           <th>name</th>
@@ -49,14 +46,14 @@
         </thead>
 
         <tbody>
-          <% @books.each do |book| %>
+          <% @users.each do |u| %>
           <tr>
             <td><%= image_tag('sample-author1.jpg') %></td>
-            <td><%= link_to book_path(book.id) do %>
-                  <%= book.title %>
+            <td><%= link_to user_path(u.id) do %>
+                  <%= u.name %>
                 <%end%>
             </td>
-            <td><%= book.body %></td>
+            <td><%= u.email %></td>
           </tr>
           <%end%>
 
@@ -65,3 +62,4 @@
     </div>
   </div>
 </div>
+
