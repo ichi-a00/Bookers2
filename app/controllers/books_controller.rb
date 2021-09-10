@@ -6,8 +6,12 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(book_params)
     @book.user_id = current_user.id
-    @book.save
-    redirect_to books_path
+    if @book.save
+      redirect_to books_path
+    else
+      @books = Book.all
+      render :index
+    end
   end
 
   def index
@@ -17,11 +21,17 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
-    #たぶんここでbookとBook.newが混在してる
+    #...
   end
 
-  def edit
+  def edit #他人のediitはできないように
     @book = Book.find(params[:id])
+    if @book.user == current_user
+      render "edit"
+    else
+      flash[:alert] = '他人の本の編集画面には行けません'
+      redirect_to books_path
+    end
   end
 
   def update
