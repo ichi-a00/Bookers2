@@ -7,9 +7,10 @@ class UsersController < ApplicationController
     @books = @user.books.page(params[:page]).reverse_order
   end
   def edit
-
-  end
-  def update
-
+    @user = User.find(params[:id])
+    if @user != current_user
+      @books = current_user.books.page(params[:page]).reverse_order
+      redirect_to user_path(current_user)
+    end
   end
 end

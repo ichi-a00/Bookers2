@@ -1,11 +1,12 @@
 <p id="notice"></p>
-<%= render "devise/shared/error_messages", resource: resource %>
 <div class='container'>
   <div class='row'>
     <div class="col-sm-12 col-md-8 col-lg-5 p-5 px-sm-3 mx-auto">
-      <h2>Edit <%= resource_name.to_s.humanize %></h2>
+      <h1>Original User Edit Page</h1>
+      <h2>Edit User</h2>
 
       <%= form_with model: @user, url: user_registration_path, local: true do |f| %>
+        <!--%= render "devise/shared/error_messages", resource: resource %-->
 
         <div class="field my-3">
           <h4><%= f.label :name %></h4>
@@ -23,10 +24,6 @@
           <%= f.text_area :introduction, autocomplete: "introduction" %>
         </div>
 
-        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-        <% end %>
-
         <div class="actions my-3">
           <%= f.submit "Update User", class:"btn btn-secondary" %>
         </div>
@@ -35,9 +32,8 @@
   </div>
   <div class='row'>
     <div class="col-sm-12 col-md-8 col-lg-5 p-5 px-sm-3 mx-auto">
-      <h2>Cancel my account</h2>
-
-      <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class:"btn btn-sm btn-danger" %></p>
+      <!--<h2>Cancel my account</h2>
+      <!--<p>Unhappy? %= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class:"btn btn-sm btn-danger" %></p>-->
 
       <%= link_to "Back", :back %>
     </div>
