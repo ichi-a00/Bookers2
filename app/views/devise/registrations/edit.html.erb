@@ -7,19 +7,19 @@
       <%= form_with model: @user, url: user_registration_path, local: true do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>
 
-        <div class="field">
-          <%= f.label :name %><br />
+        <div class="field my-3">
+          <h4><%= f.label :name %></h4>
           <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
         </div>
 
-        <div class="field">
-          <label for="inputImage">ProfileImage</label><br>
+        <div class="field my-3">
+          <h4><label for="inputImage">ProfileImage</label></h4>
           <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg"%><br>
           <%= f.attachment_field :profile_image, placeholder: "プロフィール画像" %>
         </div>
 
-        <div class="field">
-          <%= f.label :introduction %><br />
+        <div class="field my-3">
+          <h4><%= f.label :introduction %></h4>
           <%= f.text_area :introduction, autocomplete: "introduction" %>
         </div>
 
@@ -27,8 +27,8 @@
           <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
         <% end %>
 
-        <div class="actions">
-          <%= f.submit "Update" %>
+        <div class="actions my-3">
+          <%= f.submit "Update", class:"btn btn-secondary" %>
         </div>
       <% end %>
     </div>
@@ -37,7 +37,7 @@
     <div class="col-sm-12 col-md-8 col-lg-5 p-5 px-sm-3 mx-auto">
       <h2>Cancel my account</h2>
 
-      <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+      <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class:"btn btn-sm btn-danger" %></p>
 
       <%= link_to "Back", :back %>
     </div>

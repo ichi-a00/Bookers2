@@ -1,0 +1,4 @@
+<% flash.each do |key, value| %>
+  <% if key=="alert" then col = "danger" else col = "success" end %>
+  <p class="alert alert-<%= col %>"><%= value %></p>
+<% end %>

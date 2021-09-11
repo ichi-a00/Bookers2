@@ -1,9 +1,10 @@
-<p id="notice"><%= flash[:alert] %></p>
 <% if @book.errors.any? %>
-  <%= @book.errors.count %>件のエラーが発生しました
+  <p class="alert alert-danger"><%= @book.errors.count %> error(s) prohibited this obj from being saved:</p>
+  <ul class="alert alert-danger">
   <% @book.errors.full_messages.each do |message| %>
-    <%= message %>
+    <li><%= message %></li>
   <% end %>
+  </ul>
 <% end %>
 <div class='container px-5 px-sm-0'>
   <div class='row'>

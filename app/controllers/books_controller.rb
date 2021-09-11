@@ -7,7 +7,7 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
     @book.user_id = current_user.id
     if @book.save
-      redirect_to books_path
+      redirect_to books_path, notice: "You have created book successfully."
     else
       @books = Book.all
       render :index
@@ -29,22 +29,25 @@ class BooksController < ApplicationController
     if @book.user == current_user
       render "edit"
     else
-      flash[:alert] = '他人の本の編集画面には行けません'
+      flash[:alert] = 'error! 他人の本の編集ページには行けません'
       redirect_to books_path
     end
   end
 
   def update
-    book = Book.find(params[:id])
+    @book = Book.find(params[:id])
     #binding.pry
-    book.update(book_params)
-    redirect_to book_path(book)
+    if @book.update(book_params)
+      redirect_to books_path(@book), notice: "You have updated book successfully."
+    else
+      render :edit
+    end
   end
 
   def destroy
     book = Book.find(params[:id])
     book.destroy
-    redirect_to books_path
+    redirect_to books_path, alert: "You have destroyed book successfully:)"
   end
 
   private
