@@ -30,6 +30,17 @@
                 <%end%>
             </td>
             <td><%= book.body %></td>
+            <!--いいね機能ついか-->
+            <td><% if book.favorited_by?(current_user) %>
+                  <%= link_to book_favorites_path(book), method: :delete do %>
+                    ★<%= book.favorites.count %> いいね取り消す
+                  <% end %>
+                <% else %>
+                  <%= link_to book_favorites_path(book), method: :post do %>
+                    ☆<%= book.favorites.count %> いいねする
+                  <% end %>
+                <% end %>
+            </td>
           </tr>
           <%end%>
           <%= paginate @books %>
