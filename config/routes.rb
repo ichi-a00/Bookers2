@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
 
+  get 'favorites/create'
+  get 'favorites/destroy'
   devise_for :users, controllers: { registrations: 'registrations' }
   root to: 'home#top'
-  resources :books, only: [:new, :create, :index, :show, :edit, :update, :destroy]
+  resources :books, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
+    resource :favorites, only: [:create, :destroy]
+  end
 
   get  "home/about"  => "home#about"
 
