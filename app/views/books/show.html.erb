@@ -47,6 +47,24 @@
           </tr>
         </tbody>
       </table>
+      <div>
+        <% @book.comments.each do |com| %>
+          <p><%= attachment_image_tag com.user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg" %></p>
+          <%= com.user.name %>
+          <%= com.created_at.strftime('%Y/%m/%d') %><%= com.comment %>
+          <% if com.user == current_user %>
+            <div>
+              <%= link_to "削除", book_comment_path(com.book, com), method: :delete %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <div>
+        <%= form_with(model:[@book, @comment], local: true) do |f| %>
+          <%= f.text_area :comment, rows:'5',placeholder: "コメントをここに" %>
+          <%= f.submit "送信する" %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
