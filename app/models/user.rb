@@ -11,6 +11,13 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :comments, dependent: :destroy
 
+  # user.follower は userがフォローしてる人一覧　フォロー
+  has_many :follower, class_name:"Relationship", foreign_key:"follower_id", dependent: :destroy
+
+  # user.followed は userをフォローしてる人一覧　フォロワー
+  has_many :followed, class_name:"Relationship", foreign_key:"followed_id", dependent: :destroy
+
+
   attachment :profile_image
 
 
