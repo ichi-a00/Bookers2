@@ -11,14 +11,17 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :comments, dependent: :destroy
 
-  # user.follower は userがフォローしてる人一覧　フォロー
+  # user.followerはRelationshipのfollower_idを参照する
   has_many :follower, class_name:"Relationship", foreign_key:"follower_id", dependent: :destroy
-
-  # user.followed は userをフォローしてる人一覧　フォロワー
+  # user.followedはRelationshipのfollowed_idを参照する
   has_many :followed, class_name:"Relationship", foreign_key:"followed_id", dependent: :destroy
 
+  #この記述もいる
+  #user.followsで ユーザーがフォローしてる人一覧　ツイッターでいうフォロー一覧
+  has_many :follows, through: :follower, source: :followed
+  #user.followersがユーザーがフォローされてる人一覧　ツイッターでいうフォロワー一覧
+  has_many :followers, through: :followed, source: :follower
 
   attachment :profile_image
-
 
 end
