@@ -1,0 +1,49 @@
+<p id="notice"></p>
+<div class='container px-5 px-sm-0'>
+  <div class='row'>
+    <div class='col-md-3'>
+      <%= render 'books/list', user: @user %>
+    </div>
+
+    <div class='col-md-8 offset-md-1'>
+      <h2><%= @user.name %>さんのフォロワー一覧</h2>
+
+      <table class='table table-hover table-inverse'>
+        <thead>
+          <tr>
+            <th>image</th>
+            <th>name</th>
+            <th>intro</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @followers_user.each do |user| %>
+          <tr>
+            <td><%= link_to user_path(user.id) do %>
+                  <%= attachment_image_tag user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg" %>
+                <%end%>
+            </td>
+            <td><%= user.name %></td>
+            <td><%= user.introduction %></td>
+            <td>
+              <% if user != current_user %>
+                <% if current_user.follows.exists?(user.id) %>
+                  <%= link_to user_relationships_path(user), method: :delete, class:"btn btn-danger" do %>
+                    フォロー解除
+                  <% end %>
+                <% else %>
+                  <%= link_to user_relationships_path(user), method: :post, class:"btn btn-info" do %>
+                    フォローする
+                  <% end %>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+          <%end%>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

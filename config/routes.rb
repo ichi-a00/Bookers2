@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'favorites/create'
-  get 'favorites/destroy'
   devise_for :users, controllers: { registrations: 'registrations' }
   root to: 'home#top'
   resources :books, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
@@ -12,7 +10,13 @@ Rails.application.routes.draw do
   get  "home/about"  => "home#about"
 
   resources :users, only: [:index, :show, :edit, :update] do
-    resource :relationships, only: [:create, :destroy]
+    resource :relationships, only: [:create, :destroy] do
+      #users/:user_id/relarionships/follows　みたいにしたい
+      member do
+        get 'follows'
+        get 'followers'
+      end
+    end
   end
 
 

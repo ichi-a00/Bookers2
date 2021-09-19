@@ -12,16 +12,22 @@
 	        <th><%= user.introduction %></th>
         </tr>
         <tr>
-          <th>フォロー：<%= user.follower.count %> </th>
-          <th>フォロワー：<%= user.followed.count %></th>
+          <th><%= link_to follows_user_relationships_path(user) do %>
+                フォロー：<%= user.follower.count %>
+              <% end %>
+          </th>
+          <th><%= link_to followers_user_relationships_path(user) do %>
+                フォロワー：<%= user.followed.count %>
+              <% end %>
+          </th>
         <tr>
           <% if user != current_user %>
             <% if current_user.follows.exists?(user.id) %>
-              <%= link_to user_relationships_path(user), method: :delete do %>
-                フォロー解除する
+              <%= link_to user_relationships_path(user), method: :delete, class:"btn btn-danger" do %>
+                フォロー解除
               <% end %>
             <% else %>
-              <%= link_to user_relationships_path(user), method: :post do %>
+              <%= link_to user_relationships_path(user), method: :post, class:"btn btn-info" do %>
                 フォローする
               <% end %>
             <% end %>
