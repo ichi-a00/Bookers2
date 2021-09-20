@@ -51,7 +51,17 @@
           </div>
         </div>
       </nav>
-      aaa
+
+      <!--検索機能-->
+      <% if user_signed_in? %>
+      <div class="search-form">
+        <%= form_with url: search_path, method: :get, local: true do |f| %>
+          <%= f.text_field :keyword, value: @keyword %>
+          <%= f.submit "検索" %>
+        <% end %>
+      </div>
+      <% end %>
+
     </header>
     <main class="mb-auto">
       <%= render 'layouts/notifications' %>
