@@ -4,16 +4,19 @@ class CommentsController < ApplicationController
     @comment = current_user.comments.new(comment_params)
     @comment.book_id = @book.id
     if @comment.save
-      redirect_to book_path(@book), notice: "You have created comment successfully."
+      #redirect_to book_path(@book), notice: "You have created comment successfully."
     else
-      render 'books/show'
+      #binding.pry
+      #render 'books/show'
     end
 
   end
 
   def destroy
+    #なにか個々に必要そう
+    @book = Book.find(params[:book_id])
     Comment.find_by(id: params[:id]).destroy
-    redirect_to book_path(params[:book_id])
+    #redirect_to book_path(params[:book_id])
   end
 
   private

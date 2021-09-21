@@ -1,0 +1,8 @@
+<% if comment.errors.any? %>
+  <p class="alert alert-danger"><%= comment.errors.count %> error(s) prohibited this obj from being saved:</p>
+  <ul class="alert alert-danger">
+    <% comment.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
