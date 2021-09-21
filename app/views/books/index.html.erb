@@ -37,8 +37,8 @@
                 <%end%>
             </td>
             <td><%= book.body %></td>
-            <!--いいね機能ついか-->
-            <td>
+            <!--いいね機能ついか--> <!--idを割り振って、booksの中からいいねしたやつだけ非同期通信できるように-->
+            <td class="favorite-btn-<%= book.id %>">
               <%= render 'favorites/favorite-btn', book: book %>
             </td>
             <td>コメント件数：<%= book.comments.count %></td>
