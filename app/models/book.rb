@@ -10,8 +10,17 @@ class Book < ApplicationRecord
     favorites.where(user_id: user.id).exists?
   end
 
-  def self.search(keyword)
-  where(["title like? OR body like?", "%#{keyword}%", "%#{keyword}%"])
+  def self.search(keyword, matching)
+    case matching
+      when "forward" then
+        where(["title like ?", "#{keyword}%"])
+      when "backward" then
+        where(["title like ?", "%#{keyword}"])
+      when "exact" then
+        where(["title like ?", "#{keyword}"])
+      when "partial" then
+        where(["title like ?", "%#{keyword}%"])
+    end
   end
 
 end

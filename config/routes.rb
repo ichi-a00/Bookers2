@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   get  "home/about"  => "home#about"
 
-  get "search" => "books#search"
+  get "search" => "searches"
 
   resources :users, only: [:index, :show, :edit, :update] do
     resource :relationships, only: [:create, :destroy] do

@@ -51,14 +51,6 @@ class BooksController < ApplicationController
     redirect_to books_path, alert: "You have destroyed book successfully:)"
   end
 
-  def search
-    @books = Book.search(params[:keyword])
-    @keyword = params[:keyword]
-    @book = Book.new
-    #binding.pry
-    render :index
-  end
-
   private
   def book_params
     params.require(:book).permit(:title, :body)

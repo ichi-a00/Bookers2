@@ -24,4 +24,17 @@ class User < ApplicationRecord
 
   attachment :profile_image
 
+  def self.search(keyword, matching)
+    case matching
+      when "forward" then
+        where(["name like ?", "#{keyword}%"])
+      when "backward" then
+        where(["name like ?", "%#{keyword}"])
+      when "exact" then
+        where(["name like ?", "#{keyword}"])
+      when "partial" then
+        where(["name like ?", "%#{keyword}%"])
+    end
+  end
+
 end

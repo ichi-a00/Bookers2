@@ -54,9 +54,11 @@
 
       <!--検索機能-->
       <% if user_signed_in? %>
-      <div class="search-form">
+      <div class="search-form float-right mx-3">
         <%= form_with url: search_path, method: :get, local: true do |f| %>
           <%= f.text_field :keyword, value: @keyword %>
+          <%= f.select :table, [["User", "user"], ["Book", "book"]], {selected: @table}, {} %>
+          <%= f.select :match, [["完全一致", "exact"], ["前方一致", "forward"], ["後方一致", "backward"], ["部分一致", "partial"]], {selected: @match}, {} %>
           <%= f.submit "検索" %>
         <% end %>
       </div>
