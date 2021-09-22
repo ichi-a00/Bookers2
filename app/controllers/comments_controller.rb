@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
       #redirect_to book_path(@book), notice: "You have created comment successfully."
     else
       #binding.pry
-      #render 'books/show'
+      #render 'error' #解説を見て真似してみる pretend 無限に増殖する
     end
 
   end
