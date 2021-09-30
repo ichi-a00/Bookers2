@@ -21,12 +21,12 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
-    #...
+    # ...
     @comment = Comment.new
   end
 
-  def edit #他人のediitはできないように
-    #@book = Book.find(params[:id])
+  def edit # 他人のediitはできないように
+    # @book = Book.find(params[:id])
     if @book.user == current_user
       render "edit"
     else
@@ -36,8 +36,8 @@ class BooksController < ApplicationController
   end
 
   def update
-    #@book = Book.find(params[:id])
-    #binding.pry
+    # @book = Book.find(params[:id])
+    # binding.pry
     if @book.update(book_params)
       redirect_to book_path(@book.id), notice: "You have updated book successfully."
     else
@@ -46,12 +46,13 @@ class BooksController < ApplicationController
   end
 
   def destroy
-    #book = Book.find(params[:id])
+    # book = Book.find(params[:id])
     book.destroy
     redirect_to books_path, alert: "You have destroyed book successfully:)"
   end
 
   private
+
   def book_params
     params.require(:book).permit(:title, :body)
   end
