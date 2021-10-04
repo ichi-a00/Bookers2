@@ -12,7 +12,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
 
   #このユーザーがいいねした本の配列
-  has_many :favorites_books, through: :favorites, source: :book
+  #has_many :favorites_books, through: :favorites, source: :book
 
   # user.followerはRelationshipのfollower_idを参照する
   has_many :follower, class_name:"Relationship", foreign_key:"follower_id", dependent: :destroy
