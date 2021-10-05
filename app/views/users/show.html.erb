@@ -2,7 +2,7 @@
 <div class='container px-5 px-sm-0'>
   <div class='row'>
     <div class='col-md-3'>
-      <%= render 'books/list', user: @user %>
+      <%= render 'books/list', {user: @user, haveRoom: @haveRoom, room: @room, roomuser: @RoomUser} %>
     </div>
 
     <div class='col-md-8 offset-md-1'>

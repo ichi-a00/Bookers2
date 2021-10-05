@@ -25,6 +25,11 @@ class User < ApplicationRecord
   #user.followersがユーザーがフォローされてる人一覧　ツイッターでいうフォロワー一覧
   has_many :followers, through: :followed, source: :follower
 
+  #DM昨日
+  has_many :messages, dependent: :destroy
+  has_many :room_users, dependent: :destroy
+
+
   attachment :profile_image
 
   def self.search(keyword, matching)
