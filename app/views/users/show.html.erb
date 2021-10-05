@@ -2,7 +2,7 @@
 <div class='container px-5 px-sm-0'>
   <div class='row'>
     <div class='col-md-3'>
-      <%= render 'books/list', {user: @user, haveRoom: @haveRoom, room: @room, roomuser: @RoomUser} %>
+      <%= render 'books/list', user: @user %>
     </div>
 
     <div class='col-md-8 offset-md-1'>
@@ -30,16 +30,9 @@
                 <%end%>
             </td>
             <td><%= book.body %></td>
-            <!--いいね機能ついか-->
-            <td><% if book.favorited_by?(current_user) %>
-                  <%= link_to book_favorites_path(book), method: :delete do %>
-                    ★<%= book.favorites.count %> いいね取り消す
-                  <% end %>
-                <% else %>
-                  <%= link_to book_favorites_path(book), method: :post do %>
-                    ☆<%= book.favorites.count %> いいねする
-                  <% end %>
-                <% end %>
+            <!--いいね機能ついか, 非同期-->
+            <td class="favorite-btn-<%= book.id %>">
+              <%= render 'favorites/favorite-btn', book: book %>
             </td>
             <td>コメント件数：<%= book.comments.count %></td>
           </tr>
