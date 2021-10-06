@@ -18,10 +18,11 @@ class BooksController < ApplicationController
     #過去一週間以内にふぁぼられた順
     @to = Time.current.at_end_of_day
     @from = (@to - 6.day).at_beginning_of_day
-    @books = Book.includes(:favorites).sort {|a,b|
+    books = Book.includes(:favorites).sort {|a,b|
       b.favorites.includes(:favorites).where(created_at: @from...@to).size <=>
       a.favorites.includes(:favorites).where(created_at: @from...@to).size
     }
+    @books=Kaminari.paginate_array(books).page(params[:page]).per(8)
     @book = Book.new
   end
 
