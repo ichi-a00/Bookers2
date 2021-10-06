@@ -54,8 +54,8 @@
         </thead>
         <tbody>
           <tr>
-            <td><%= @today_count %></td>
-            <td><%= @yesterday_count %></td>
+            <td><%= @count_array[0] %></td>
+            <td><%= @count_array[1] %></td>
             <td><%= @perday %></td>
         </tbody>
         <thead>
@@ -72,6 +72,33 @@
             <td><%= @perweek %></td>
         </tbody>
       </table>
+      <canvas id="myChart"></canvas>
+      <script>
+      var ctx = document.getElementById("myChart");
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          //labels: %= @days_array %>,
+          //["2021-10-06 21:46:09 +0900","2021-10-05 21:46:09 +0900","2021-10-04 21:46:09 +0900","2021-10-03 21:46:09 +0900","2021-10-02 21:46:09 +0900","2021-10-01 21:46:09 +0900","2021-09-30 21:46:09 +0900"] %>
+          labels: <%= @days_array %>,
+          datasets:[{
+              label: '投稿数',
+              data: <%= @count_array %>,
+              backgroundColor: 'rgba(255, 80, 120, 1.0)',
+              borderColor: 'rgba(255, 80, 120, 1.0)',
+              fill: false
+          }]
+        },
+        scales: {
+            x: {
+                type: 'time',
+                time: {
+                    unit: 'day'
+                }
+            }
+        }
+      });
+      </script>
     </div>
   </div>
 </div>

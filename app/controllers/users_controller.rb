@@ -7,13 +7,22 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @books = @user.books.page(params[:page]).reverse_order
 
-    @today_count = @user.books.where(created_at: Time.zone.now.all_day).count
-    @yesterday_count = @user.books.where(created_at: 1.day.ago.all_day).count
+    #today_count = @user.books.where(created_at: Time.zone.now.all_day).count
+    #@yesterday_count = @user.books.where(created_at: 1.day.ago.all_day).count
 
-    if @yesterday_count == 0
+    #ex8bから改良
+    @count_array = []
+    @days_array = []
+
+    for i in 0..6 do
+      @count_array[i] = @user.books.where(created_at: i.day.ago.all_day).count
+      @days_array[i] = (Time.zone.now-i.day).day
+    end
+
+    if @count_array[1] == 0
       @perday = "NONE"
     else
-      @perday = (@today_count/@yesterday_count)*100
+      @perday = (@count_array[0]/@count_array[1])*100
     end
 
     @week_count = @user.books.where(created_at: (Time.zone.now.at_beginning_of_day-6.day)..Time.zone.now.at_end_of_day).count
@@ -24,6 +33,8 @@ class UsersController < ApplicationController
     else
       @perweek = (@week_count/@lastweek_count)*100
     end
+
+    #binding.pry
 
   end
 
