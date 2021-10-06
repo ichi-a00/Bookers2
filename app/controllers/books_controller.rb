@@ -29,28 +29,8 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     @user = @book.user
 
-    #@room_id = search_room_id(@user)
-
-#
-#    unless @user.id == current_user.id  #current_userと@userが一致していなければ
-#      currentRoomUser = RoomUser.where(user_id: current_user.id)  #current_userが既にルームに参加しているか判断
-#      receiveUser = RoomUser.where(user_id: @user.id)  #他の@userがルームに参加しているか判断
-#
-#      currentRoomUser.each do |cu|    #current_userが参加していルームを取り出す
-#        receiveUser.each do |u|    #@userが参加しているルームを取り出す
-#          if cu.room_id == u.room_id    #current_userと@userのルームが同じか判断(既にルームが作られているか)
-#            @haveroom = true    #falseの時(同じじゃない時)の条件を記述するために変数に代入
-#            @room_id = cu.room_id   #ルームが共通しているcurrent_userと@userに対して変数を指定
-#          end
-#        end
-#      end
-#    end
-#    unless @haveroom    #ルームが同じじゃなければ
-#        #新しいインスタンスを生成
-#        @room = Room.new
-#        @RoomUser = RoomUser.new
-#        #//新しいインスタンスを生成
-#    end
+    #閲覧数
+    impressionist(@book, nil, unique: [:ip_address])
 
     @comment = Comment.new
   end

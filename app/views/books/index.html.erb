@@ -22,8 +22,9 @@
             <th>Title</th>
             <th>Opinion</th>
             <th>★</th>
-            <th>1週間以内の★</th>
+            <!--<th>1週間以内の★</th>-->
             <th>comments</th>
+            <th>閲覧数</th>
           </tr>
         </thead>
 
@@ -43,8 +44,9 @@
             <td class="favorite-btn-<%= book.id %>">
               <%= render 'favorites/favorite-btn', book: book %>
             </td>
-            <td><%= book.favorites.includes(:favorites).where(created_at: @from...@to).size %></td>
+            <!--これ入れると重い。<td>%= book.favorites.includes(:favorites).where(created_at: @from...@to).size %></td>-->
             <td>コメント件数：<%= book.comments.count %></td>
+            <td><%= book.impressions_count %></td>
           </tr>
           <%end%>
 

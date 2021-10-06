@@ -6,6 +6,9 @@ class Book < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :comments, dependent: :destroy
 
+  #閲覧数
+  is_impressionable counter_cache: true
+
   #この本をいいね舌ユーザーの配列 iranakatta
   #has_many :favorites_users, through: :favorites, source: :user
 
