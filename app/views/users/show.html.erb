@@ -57,6 +57,7 @@
             <td><%= @count_array[0] %></td>
             <td><%= @count_array[1] %></td>
             <td><%= @perday %></td>
+          </tr>
         </tbody>
         <thead>
           <tr>
@@ -70,6 +71,25 @@
             <td><%= @week_count %></td>
             <td><%= @lastweek_count %></td>
             <td><%= @perweek %></td>
+          </tr>
+        </tbody>
+      </table>
+      <table class='table table-hover table-inverse'>
+        <thead>
+          <tr>
+            <th>日付</th>
+            <% @days_array.each do |d| %>
+              <td><%= d %></td>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>投稿数</th>
+            <% @count_array.each do |c| %>
+              <td><%= c %></td>
+            <% end %>
+          </tr>
         </tbody>
       </table>
       <canvas id="myChart"></canvas>
@@ -80,25 +100,22 @@
         data: {
           //labels: %= @days_array %>,
           //["2021-10-06 21:46:09 +0900","2021-10-05 21:46:09 +0900","2021-10-04 21:46:09 +0900","2021-10-03 21:46:09 +0900","2021-10-02 21:46:09 +0900","2021-10-01 21:46:09 +0900","2021-09-30 21:46:09 +0900"] %>
-          labels: <%= @days_array %>,
+          labels: gon.days_array,
           datasets:[{
               label: '投稿数',
-              data: <%= @count_array %>,
+              data: gon.count_array,
               backgroundColor: 'rgba(255, 80, 120, 1.0)',
-              borderColor: 'rgba(255, 80, 120, 1.0)',
+              borderColor: 'rgba(0, 80, 120, 1.0)',
               fill: false
           }]
         },
-        scales: {
-            x: {
-                type: 'time',
-                time: {
-                    unit: 'day'
-                }
-            }
-        }
       });
       </script>
+
+      <div class="count-book">
+        <%= render 'searches/result', keyword: @keyword, count_book: @count_book, user_id: @user.id %>
+      </div>
+
     </div>
   </div>
 </div>

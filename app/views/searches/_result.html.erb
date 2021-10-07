@@ -1,0 +1,15 @@
+      <div class="search-form  m-3">
+        <%= form_with url: search_path, method: :get, remote: true do |f| %>
+          <%= f.date_field :keyword, value: keyword %>
+          <%= f.hidden_field :match, value: "day" %>
+          <%= f.hidden_field :table, value: "day" %>
+          <%= f.hidden_field :user_id, value: user_id %>
+          <%= f.submit "検索" %>
+        <% end %>
+      </div>
+
+      <div class="m-2">
+        <% if count_book %>
+        <%= keyword %>の投稿数： <%= count_book %>
+        <% end %>
+      </div>

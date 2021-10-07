@@ -32,7 +32,7 @@ class User < ApplicationRecord
 
   attachment :profile_image
 
-  def self.search(keyword, matching)
+  def self.search(keyword, matching, user_id)
     case matching
       when "forward" then
         where(["name like ?", "#{keyword}%"])

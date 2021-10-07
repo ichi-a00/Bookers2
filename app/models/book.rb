@@ -16,7 +16,7 @@ class Book < ApplicationRecord
     favorites.where(user_id: user.id).exists?
   end
 
-  def self.search(keyword, matching)
+  def self.search(keyword, matching, user_id)
     case matching
       when "forward" then
         where(["title like ?", "#{keyword}%"])
@@ -26,6 +26,10 @@ class Book < ApplicationRecord
         where(["title like ?", "#{keyword}"])
       when "partial" then
         where(["title like ?", "%#{keyword}%"])
+
+      #ex9b
+      when "day" then
+        where(["created_at between ? and ? and user_id like ?", "#{keyword.in_time_zone.at_beginning_of_day}", "#{keyword.in_time_zone.at_end_of_day}", "#{user_id}"])
     end
   end
 
