@@ -1,0 +1,29 @@
+<div class='container px-5 px-sm-0'>
+  <div class='row'>
+    <div class='col-md-3'>
+    <%= render 'books/list', user: current_user %>
+    </div>
+
+    <div class='col-md-8 offset-md-1'>
+      <h2>Groups</h2>
+
+      <table class='table table-hover table-inverse'>
+        <tbody>
+          <% @groups.each do |g| %>
+          <tr>
+            <td><%= link_to group_path(g.id) do %>
+                <%= attachment_image_tag g, :image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg" %>
+                <% end %>
+            </td>
+            <td><%= g.name %></td>
+            <td><%= g.introduction %></td>
+          </tr>
+          <%end%>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+

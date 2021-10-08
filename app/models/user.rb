@@ -29,6 +29,9 @@ class User < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :room_users, dependent: :destroy
 
+  #ex7c　グループ
+  has_many :group_users, dependent: :destroy
+
 
   attachment :profile_image
 
