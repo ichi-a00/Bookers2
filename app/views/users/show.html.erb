@@ -14,7 +14,8 @@
             <th></th>
             <th>Title</th>
             <th>Opinion</th>
-            <th>★</th>
+            <th>評価</th>
+            <th>いいね</th>
             <th></th>
             <th>閲覧数</th>
           </tr>
@@ -32,6 +33,8 @@
                 <%end%>
             </td>
             <td><%= book.body %></td>
+            <!--評価-->
+            <td class="book-evaluation" data-score="<%= book.rate %>"></td>
             <!--いいね機能ついか, 非同期-->
             <td class="favorite-btn-<%= book.id %>">
               <%= render 'favorites/favorite-btn', book: book %>
@@ -119,3 +122,12 @@
     </div>
   </div>
 </div>
+<script>
+  $('.book-evaluation').raty({
+    readOnly: true,
+    score: function() {
+      return $(this).attr('data-score');
+    },
+    path: '/assets/'
+  });
+</script>

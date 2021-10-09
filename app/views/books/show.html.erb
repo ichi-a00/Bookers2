@@ -29,6 +29,8 @@
               <%end%>
             </td>
             <td><%= @book.body %></td>
+            <!--評価-->
+            <td class="book-evaluation" data-score="<%= @book.rate %>"></td>
             <!--いいね機能ついか--><!-- 応用課題6でテンプレート化しました-->
             <td class="favorite-btn-<%= @book.id %>">
               <%= render 'favorites/favorite-btn', book: @book %>
@@ -75,3 +77,12 @@
     </div>
   </div>
 </div>
+<script>
+  $('.book-evaluation').raty({
+    readOnly: true,
+    score: function() {
+      return $(this).attr('data-score');
+    },
+    path: '/assets/'
+  });
+</script>
