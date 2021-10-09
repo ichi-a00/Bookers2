@@ -72,6 +72,13 @@
         </table>
 
 
+        <% if @group.owner_id == current_user.id %>
+        <h4>notive event</h4>
+        <%= link_to "NOTICE EVENT", send_email_group_path, class:"btn btn-primary" %>
+
+        <hr>
+        <%end%>
+
       <%= link_to "Group Index", groups_path %>
     </div>
   </div>

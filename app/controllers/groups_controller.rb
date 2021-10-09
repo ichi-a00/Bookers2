@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
   before_action :authenticate_user!
-  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy, :send_email]
 
   def new
     @group = Group.new
@@ -47,9 +47,14 @@ class GroupsController < ApplicationController
   end
 
   def destroy
-    @group = Group.find(params[:id])
+    #@group = Group.find(params[:id])
     @group.destroy
     redirect_to groups_path, alert: "You have destroyed grup@ successfully"
+  end
+
+  def send_email
+    GroupMailer.notice_event(@group).deliver
+    redirect_to group_path(@group.id)
   end
 
   private

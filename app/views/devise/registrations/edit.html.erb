@@ -23,6 +23,11 @@
           <%= f.text_area :introduction, autocomplete: "introduction" %>
         </div>
 
+         <div class="field my-3">
+          <h4><%= f.label :email %></h4>
+          <%= f.email_field :email, autocomplete: "email" %>
+        </div>
+
         <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
           <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
         <% end %>
