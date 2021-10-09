@@ -59,6 +59,7 @@ class GroupsController < ApplicationController
   def send_email
     #binding.pry
     GroupMailer.notice_event(@group, params[:title], params[:body]).deliver
+    flash[:notice] = "Success notice_event. title:#{params[:title]}, body:#{params[:body]}"
     redirect_to group_path(@group.id)
   end
 
