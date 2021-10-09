@@ -26,7 +26,7 @@
             <td>
               <% if @group.owner_id != current_user.id %>
                 <% if @group.join?(current_user) %>
-                  <%= link_to group_users_path(@group), method: :delete, class:"btn btn-sm btn-info" do %>
+                  <%= link_to group_users_path(@group), method: :delete, class:"btn btn-sm btn-destroy" do %>
                     Leave this group
                   <% end %>
                 <% else %>
@@ -74,7 +74,7 @@
 
         <% if @group.owner_id == current_user.id %>
         <h4>notive event</h4>
-        <%= link_to "NOTICE EVENT", send_email_group_path, class:"btn btn-primary" %>
+        <%= link_to "NOTICE EVENT", new_email_group_path, class:"btn btn-primary" %>
 
         <hr>
         <%end%>

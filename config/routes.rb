@@ -25,7 +25,8 @@ Rails.application.routes.draw do
   resources :rooms, only: [:create, :show]
   resources :groups, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
     member do
-      get 'send_email'
+      post 'send_email'
+      get 'new_email'
     end
   end
 

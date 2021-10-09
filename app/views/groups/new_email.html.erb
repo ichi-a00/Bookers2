@@ -1,0 +1,11 @@
+<%= form_with url: send_email_group_path, local:true do |f| %>
+  <h4>title</h4>
+  <%= f.text_field :title %>
+  <h4>body</h4>
+  <%= f.text_area :body %>
+  <div>
+  <%= f.submit "send_email", class:"btn btn-success" %>
+  </div>
+<% end %>
+
+<%= link_to "Group Page", group_path %>

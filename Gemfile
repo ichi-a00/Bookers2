@@ -81,3 +81,5 @@ gem 'font-awesome-sass', '~> 5.13'
 gem 'pry-byebug'
 
 gem 'gon',  '~> 6.2.0'
+
+gem 'dotenv-rails'
