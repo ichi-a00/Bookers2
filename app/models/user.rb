@@ -31,6 +31,7 @@ class User < ApplicationRecord
 
   #ex7c　グループ
   has_many :group_users, dependent: :destroy
+  has_many :groups, through: :group_users
 
 
   attachment :profile_image

@@ -1,4 +1,7 @@
 class BooksController < ApplicationController
+  before_action :authenticate_user!
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
+
   def new
     @book = Book.new
   end
@@ -36,18 +39,19 @@ class BooksController < ApplicationController
     @comment = Comment.new
   end
 
-  def edit # 他人のediitはできないように
-    @book = Book.find(params[:id])
-    if @book.user == current_user
-      render "edit"
-    else
-      flash[:alert] = 'error! 他人の本の編集ページには行けません'
-      redirect_to books_path
-    end
+  def edit
+    # 他人のediitはできないように -> ensure~で判別
+    #book = Book.find(params[:id])
+    #if @book.user == current_user
+    #  render "edit"
+    #else
+    #  flash[:alert] = 'error! 他人の本の編集ページには行けません'
+    #  redirect_to books_path
+    #end
   end
 
   def update
-    @book = Book.find(params[:id])
+    #@book = Book.find(params[:id])
     # binding.pry
     if @book.update(book_params)
       redirect_to book_path(@book.id), notice: "You have updated book successfully."
@@ -57,8 +61,8 @@ class BooksController < ApplicationController
   end
 
   def destroy
-    book = Book.find(params[:id])
-    book.destroy
+    #book = Book.find(params[:id])
+    @book.destroy
     redirect_to books_path, alert: "You have destroyed book successfully:)"
   end
 
@@ -67,4 +71,13 @@ class BooksController < ApplicationController
   def book_params
     params.require(:book).permit(:title, :body)
   end
+
+  def ensure_correct_user
+    @book = Book.find(params[:id])
+    unless @book.user == current_user
+      flash[:alert] = 'error! 他人の本は編集できません'
+      redirect_to books_path
+    end
+  end
+
 end

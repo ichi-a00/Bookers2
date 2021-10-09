@@ -1,4 +1,7 @@
 class GroupsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
+
   def new
     @group = Group.new
   end
@@ -24,16 +27,18 @@ class GroupsController < ApplicationController
   end
 
   def edit
-    @group = Group.find(params[:id])
-    if @group.owner_id != current_user.id
-      #@books = current_user.books.page(params[:page]).reverse_order
-      @groups = Group.all
-      redirect_to groups_path()
-    end
+
+    #@group = Group.find(params[:id])
+    # if @group.owner_id != current_user.id
+    #  #@books = current_user.books.page(params[:page]).reverse_order
+    #   @groups = Group.all
+    #  redirect_to groups_path()
+    #end
   end
 
   def update
-    @group = Group.find(params[:id])
+    #ensureするのでいらない
+    #@group = Group.find(params[:id])
     if @group.update(group_params)
       redirect_to group_path(@group.id), notice: "You have updated group successfully."
     else
@@ -42,8 +47,8 @@ class GroupsController < ApplicationController
   end
 
   def destroy
-    group = Group.find(params[:id])
-    group.destroy
+    @group = Group.find(params[:id])
+    @group.destroy
     redirect_to groups_path, alert: "You have destroyed grup@ successfully"
   end
 
@@ -52,4 +57,13 @@ class GroupsController < ApplicationController
   def group_params
     params.require(:group).permit(:name, :introduction, :image)
   end
+
+  def ensure_correct_user
+    @group = Group.find(params[:id])
+    unless @group.owner_id == current_user.id
+      flash[:alert] = 'error! オーナーでないグループは編集できません'
+      redirect_to groups_path
+    end
+  end
+
 end

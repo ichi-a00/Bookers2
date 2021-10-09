@@ -13,19 +13,29 @@
     <div class='col-md-8 offset-md-1'>
       <h2>Group detail</h2>
 
+
+
       <table class='table table-hover table-inverse'>
         <tbody>
           <tr>
             <td>
               <%= attachment_image_tag @group, :image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg" %>
             </td>
-            <td>
-              <%= link_to group_path(@group.id) do %>
-                <%= @group.name %>
-              <%end%>
-            </td>
+            <td><%= @group.name %></td>
             <td><%= @group.introduction %></td>
-
+            <td>
+              <% if @group.owner_id != current_user.id %>
+                <% if @group.join?(current_user) %>
+                  <%= link_to group_users_path(@group), method: :delete, class:"btn btn-sm btn-info" do %>
+                    Leave this group
+                  <% end %>
+                <% else %>
+                  <%= link_to group_users_path(@group), method: :post, class:"btn btn-sm btn-info" do %>
+                    Join this group
+                  <% end %>
+                <% end %>
+              <% end %>
+            </td>
             <td><% if @group.owner_id == current_user.id %>
                 <%= link_to "Edit", edit_group_path(@group), class:"btn btn-sm btn-success" %>
                 <% end %>
@@ -37,6 +47,31 @@
           </tr>
         </tbody>
       </table>
+
+      <h4>参加者一覧(<%= @group.users.count+1 %>名)</h4>
+        <table class='table table-hover table-inverse'>
+            <tr>
+              <td><%= link_to user_path(@group.owner) do %>
+                    <%= attachment_image_tag @group.owner, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg" %>
+                    <% end %>
+              </td>
+              <td><strong><%= @group.owner.name %>さん（オーナー）</strong></td>
+              <td><%= @group.owner.introduction %></td>
+
+            <% @group.users.each do |gu| %>
+              <tr>
+                <td><%= link_to user_path(gu) do %>
+                    <%= attachment_image_tag gu, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg" %>
+                    <% end %>
+                </td>
+                <td><%= gu.name %></td>
+                <td><%= gu.introduction %></td>
+              </tr>
+            <% end %>
+
+        </table>
+
+
       <%= link_to "Group Index", groups_path %>
     </div>
   </div>
