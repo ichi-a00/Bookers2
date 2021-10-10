@@ -14,12 +14,18 @@ class SearchesController < ApplicationController
         #binding.pry
         render "users/index"
       when "book" then
-        @books = Book.search(@keyword, @match, @user_id)
+        @books = Book.search(@keyword, @match, @user_id).page(params[:page]).reverse_order
         @book = Book.new
         render "books/index"
+      #ex9b
       when "day" then
         @count_book = Book.search(@keyword, @match, @user_id).count
         #render "books/test"
+      #ex9d
+      when "category" then
+        @books = Book.search_category(@keyword, @match).page(params[:page]).reverse_order
+        @book = Book.new
+        render "books/index"
     end
 
   end

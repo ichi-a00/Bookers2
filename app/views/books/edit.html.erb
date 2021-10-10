@@ -17,7 +17,12 @@
       <%= f.text_field :title %>
       <h4>本分</h4>
       <%= f.text_area :body %>
-      <div>
+      <h4>カテゴリ</h4>
+      <%= f.text_field :category %>
+      <h4>評価（あとからは変えられない仕様）</h4>
+      <span class="book-evaluation" data-score="<%= @book.rate %>"></span>
+
+      <div class="my-3">
       <%= f.submit 'Update Book', class:"btn btn-sm btn-success" %>
       </div>
       <% end %>
@@ -26,3 +31,12 @@
   		<%= link_to "Back", books_path %>
   </div>
 </div>
+<script>
+  $('.book-evaluation').raty({
+    readOnly: true,
+    score: function() {
+      return $(this).attr('data-score');
+    },
+    path: '/assets/'
+  });
+</script>

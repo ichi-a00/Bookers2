@@ -29,6 +29,11 @@
               <%end%>
             </td>
             <td><%= @book.body %></td>
+            <!--ex9d カテゴリ-->
+            <td><%= link_to search_path(keyword: "#{@book.category}", table:"category", match: "exact") do %>
+                  <%= @book.category %>
+                <%end%>
+            </td>
             <!--評価-->
             <td class="book-evaluation" data-score="<%= @book.rate %>"></td>
             <!--いいね機能ついか--><!-- 応用課題6でテンプレート化しました-->

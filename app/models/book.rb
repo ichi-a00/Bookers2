@@ -30,6 +30,20 @@ class Book < ApplicationRecord
       #ex9b
       when "day" then
         where(["created_at between ? and ? and user_id like ?", "#{keyword.in_time_zone.at_beginning_of_day}", "#{keyword.in_time_zone.at_end_of_day}", "#{user_id}"])
+
+    end
+  end
+
+  def self.search_category(keyword, matching)
+    case matching
+      when "forward" then
+        where(["category like ?", "#{keyword}%"])
+      when "backward" then
+        where(["category like ?", "%#{keyword}"])
+      when "exact" then
+        where(["category like ?", "#{keyword}"])
+      when "partial" then
+        where(["category like ?", "%#{keyword}%"])
     end
   end
 

@@ -16,19 +16,20 @@
       <h2>Books</h2>
 
       <% if @sort == "rate" %>
-        <%= link_to "新着順", books_path(sort: "created_at") %>
+        <%= link_to "新着順", books_path(sort: "created_at") %> |
         <%= link_to "@評価順", books_path(sort: "rate") %>
       <% else %>
-        <%= link_to "@新着順", books_path(sort: "created_at") %>
+        <%= link_to "@新着順", books_path(sort: "created_at") %> |
         <%= link_to "評価順", books_path(sort: "rate") %>
       <% end %>
 
       <table class='table table-hover table-inverse'>
         <thead>
           <tr>
-            <th></th>
+            <th>Author</th>
             <th>Title</th>
-            <th>Opinion</th>
+            <th>Body</th>
+            <th>Category</th>
             <th>評価</th>
             <th>いいね</th>
             <!--<th>1週間以内の★</th>-->
@@ -49,6 +50,11 @@
                 <%end%>
             </td>
             <td><%= book.body %></td>
+            <!--ex9d カテゴリ-->
+            <td><%= link_to search_path(keyword: "#{book.category}", table:"category", match: "exact") do %>
+                  <%= book.category %>
+                <%end%>
+            </td>
             <!--ex7d 評価-->
             <td class="book-evaluation" data-score="<%= book.rate %>"></td>
             <!--いいね機能ついか--> <!--idを割り振って、booksの中からいいねしたやつだけ非同期通信できるように-->
