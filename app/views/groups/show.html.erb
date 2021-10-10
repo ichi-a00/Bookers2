@@ -26,7 +26,7 @@
             <td>
               <% if @group.owner_id != current_user.id %>
                 <% if @group.join?(current_user) %>
-                  <%= link_to group_users_path(@group), method: :delete, class:"btn btn-sm btn-destroy" do %>
+                  <%= link_to group_users_path(@group), method: :delete, class:"btn btn-sm btn-danger" do %>
                     Leave this group
                   <% end %>
                 <% else %>
