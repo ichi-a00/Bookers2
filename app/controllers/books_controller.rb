@@ -19,15 +19,28 @@ class BooksController < ApplicationController
 
   def index
     #過去一週間以内にふぁぼられた順
-    #ソート機能は結構重い。
-    @to = Time.current.at_end_of_day
-    @from = (@to - 6.day).at_beginning_of_day
-    books = Book.includes(:favorites).sort {|a,b|
-      b.favorites.includes(:favorites).where(created_at: @from...@to).size <=>
-      a.favorites.includes(:favorites).where(created_at: @from...@to).size
-    }
-    @books=Kaminari.paginate_array(books).page(params[:page]).per(10)
+    @sort = params[:sort]
     @book = Book.new
+
+    case @sort
+    when "fav_weekly" then
+      #1週間以内ふぁぼソートは結構重い。
+      @to = Time.current.at_end_of_day
+      @from = (@to - 6.day).at_beginning_of_day
+      books = Book.includes(:favorites).sort {|a,b|
+        b.favorites.includes(:favorites).where(created_at: @from...@to).size <=>
+        a.favorites.includes(:favorites).where(created_at: @from...@to).size
+      }
+    when "rate" then
+      #評価順
+      books=Book.all.order("rate desc")
+    else
+      #デフォルトは新着順
+      books=Book.all.order("created_at desc")
+    end
+
+    @books=Kaminari.paginate_array(books).page(params[:page]).per(10)
+
   end
 
   def show
