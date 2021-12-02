@@ -9,6 +9,9 @@ class Book < ApplicationRecord
   #閲覧数
   is_impressionable counter_cache: true
 
+  #activestorage
+  has_one_attached :image
+
   #この本をいいね舌ユーザーの配列 iranakatta
   #has_many :favorites_users, through: :favorites, source: :user
 
