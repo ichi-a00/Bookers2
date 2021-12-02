@@ -3,6 +3,8 @@ class CommentsController < ApplicationController
     @book = Book.find(params[:book_id])
     @comment = current_user.comments.new(comment_params)
     @comment.book_id = @book.id
+    #natural language scores
+    @comment.score = Language.get_data(comment_params[:comment])  #この行を追加
     if @comment.save
       # redirect_to book_path(@book), notice: "You have created comment successfully."
     else
