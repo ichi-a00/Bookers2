@@ -17,11 +17,9 @@
         <tbody>
           <tr>
             <td>
-              <%= attachment_image_tag @book.user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg" %>
-              <br />
-              <%= link_to user_path(@book.user.id) do %>
-                  <%= @book.user.name %>
-              <%end%>
+              <% if @book.image.attached? %>
+                <%= image_tag @book.image %>
+              <% end %>
             </td>
             <td>
               <%= link_to book_path(@book.id) do %>
